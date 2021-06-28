@@ -4,9 +4,8 @@ const getPlaneDataArray = require("./getPlaneDataArray");
 const getPrecisePlaneData = require("./getPrecisePlaneData");
 var planes;
 (async () => {
-  planes = await getPlaneDataArray(nightmare, "boof69.62828");
-  planes
-    .filter((plane) => plane.type == "Airplane Models")
-    .map(async (plane) => {});
+  const planeDataArray = await getPlaneDataArray(nightmare, "boof69.62828");
   nightmare.end().then();
+  const planesWithPreciseData = await getPrecisePlaneData(planeDataArray);
+  console.log(planesWithPreciseData);
 })();
