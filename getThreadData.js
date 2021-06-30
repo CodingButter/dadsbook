@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const threadData = [];
 
-const getThreadData = async (nightmare, threadUrl, page = 1) => {
+const getThreadDataLoop = async (nightmare, threadUrl, page = 1) => {
   return new Promise((resolve, reject) => {
     nightmare
       .goto(`${threadUrl}/page-${page}`)
@@ -33,4 +33,11 @@ const getThreadData = async (nightmare, threadUrl, page = 1) => {
   });
 };
 
+const getThreadAsync = async (nightmare, plane) => {
+  return getThreadDataLoop(nightmare, plane);
+};
+
+const getThreadData = async (nightmare, planes) => {
+  return Promise.all(planes.map((plane) => {}));
+};
 module.exports = getThreadData;
