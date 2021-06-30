@@ -4,7 +4,7 @@ var publishedPlanes = [];
 
 const getPlaneDataArray = async (nightmare, username, page = 1) => {
   return new Promise((resolve, reject) => {
-    const dadsPlanesUrl = `${process.env.FORUMN_BASE_URL}/forums/index.php?resources/authors/${username}/&page=${page}`;
+    const dadsPlanesUrl = `${process.env.FORUMN_BASE_URL}/index.php?resources/authors/${username}/&page=${page}`;
 
     nightmare
       .goto(dadsPlanesUrl)
@@ -55,7 +55,7 @@ const getPlaneDataArray = async (nightmare, username, page = 1) => {
             : false,
           planes,
         };
-      }, process.env.FORUMN_BASE_URL)
+      }, process.env.KNIFEEDGE_BASE_URL)
       //.end()
       .then(async (publish_data) => {
         publishedPlanes = [...publishedPlanes, ...publish_data.planes];

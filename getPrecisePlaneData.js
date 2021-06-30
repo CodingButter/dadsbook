@@ -1,8 +1,9 @@
-const Nightmare = require("nightmare");
-
-const getPrecisePlaneDataPromise = async (plane) => {
+const getPrecisePlaneDataLoop = async (nightmare, planes, index = 0) => {
+  if (index == planes.length) {
+    return planes;
+  }
+  const plane = planes[index];
   return new Promise((resolve, reject) => {
-    const nightmare = Nightmare({ show: true });
     nightmare
       .goto(plane.link)
       .wait(".bbWrapper")
@@ -69,25 +70,17 @@ const getPrecisePlaneDataPromise = async (plane) => {
         credits.modelBy && delete credits.modelBy;
         return { buildThreadLink, mainDescription, credits };
       })
-      .end()
-      .then((results) => {
-        plane.rawDescription = results;
-        resolve(plane);
+      .then(async (results) => {
+        planes[index].rawDescription = results;
+        index++;
+        resolve(await getPrecisePlaneDataLoop(nightmare, planes, index));
       })
       .catch(reject);
   });
 };
 
-const getPrecisePlaneDataAsync = async (plane) => {
-  return getPrecisePlaneDataPromise(plane);
-};
-
-const getPrecisePlaneDataRaw = async (planes) => {
-  return Promise.all(planes.map(getPrecisePlaneDataAsync));
-};
-
-const getPrecisePlaneData = async (planes) => {
-  const rawResults = await getPrecisePlaneDataRaw(planes);
+const getPrecisePlaneData = async (nightmare, planes) => {
+  const rawResults = await getPrecisePlaneDataLoop(nightmare, planes);
   return rawResults.map((plane) => {
     const { mainDescription, buildThreadLink, credits } = plane.rawDescription;
     plane.buildThreadLink = buildThreadLink;
