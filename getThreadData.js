@@ -38,6 +38,10 @@ const getThreadAsync = async (nightmare, plane) => {
 };
 
 const getThreadData = async (nightmare, planes) => {
-  return Promise.all(planes.map((plane) => {}));
+  return Promise.all(
+    planes.map((plane) => {
+      return getThreadDataLoop(nightmare, plane);
+    })
+  );
 };
 module.exports = getThreadData;
