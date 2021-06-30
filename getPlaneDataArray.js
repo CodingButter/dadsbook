@@ -23,14 +23,9 @@ const getPlaneDataArray = async (nightmare, username, page = 1) => {
             ? parseInt(plane.querySelector(".reaction").innerText.trim())
             : 0;
 
-          const published = {
-            mmmddyyy: plane
-              .querySelector(".u-dt")
-              .getAttribute("data-date-string"),
-            dateTime: parseInt(
-              plane.querySelector(".u-dt").getAttribute("data-time")
-            ),
-          };
+          const publishDate = parseInt(
+            plane.querySelector(".u-dt").getAttribute("data-time")
+          );
 
           const type = plane.querySelector(
             ".structItem-startDate + li"
@@ -44,7 +39,7 @@ const getPlaneDataArray = async (nightmare, username, page = 1) => {
             type,
             link,
             likes,
-            published,
+            publishDate,
             downloads,
           };
         });

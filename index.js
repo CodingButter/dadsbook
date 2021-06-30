@@ -7,31 +7,26 @@ const getRenders = require("./getRenders");
 const getThreadData = require("./getThreadData");
 const Login = require("./Login");
 var planes;
-const planesWithRenders = require("./models.json");
 (async () => {
-  Login(nightmare);
-  /*const planeDataArray = await getPlaneDataArray(nightmare, "boof69.62828");
+  await Login(nightmare);
+  /*
+  const planeDataArray = await getPlaneDataArray(nightmare, "boof69.62828");
   const planesWithPreciseData = await getPrecisePlaneData(
     nightmare,
     planeDataArray
   );
   const planesWithRenders = await getRenders(nightmare, planesWithPreciseData);
-  */
-  /*const planesWithThreadData = await getThreadData(
-    nightmare,
-    planesWithRenders
-  );*/
+/**/
 
-  const finishedPlanes = planesWithThreadData;
+  const planesWithRenders = require("./models.json");
+  try {
+    const planesWithThreadData = await getThreadData(
+      nightmare,
+      planesWithRenders
+    );
+  } catch (err) {
+    console.log(err);
+  }
 
   nightmare.end().then();
-
-  writeFileSync(
-    `${__dirname}/models.json`,
-    JSON.stringify(
-      finishedPlanes.sort((a, b) => (a.type > b.type ? 1 : -1)),
-      null,
-      2
-    )
-  );
 })();
