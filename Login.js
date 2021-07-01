@@ -1,12 +1,12 @@
 require("dotenv").config();
 const { writeFileSync } = require("fs");
 const Login = async (nightmare) => {
-  const loginurl = `${process.env.FORUMN_BASE_URL}/login`;
+  const loginurl = `${process.env.FORUM_BASE_URL}/login`;
   await nightmare
     .goto(loginurl)
     .wait(`input[name=login]`)
-    .type("input[name=login]", process.env.FORUMN_USERNAME)
-    .type("input[type=password]", process.env.FORUMN_PASSWORD)
+    .type("input[name=login]", process.env.FORUM_USERNAME)
+    .type("input[type=password]", process.env.FORUM_PASSWORD)
     .click(".button--icon--login")
     .wait(".node--unread")
     .evaluate(() => "")

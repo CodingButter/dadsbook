@@ -4,7 +4,7 @@ var publishedPlanes = [];
 
 const getPlaneDataArray = async (nightmare, username, page = 1) => {
   return new Promise((resolve, reject) => {
-    const dadsPlanesUrl = `${process.env.FORUMN_BASE_URL}/index.php?resources/authors/${username}/&page=${page}`;
+    const dadsPlanesUrl = `${process.env.FORUM_BASE_URL}/index.php?resources/authors/${username}/&page=${page}`;
 
     nightmare
       .goto(dadsPlanesUrl)

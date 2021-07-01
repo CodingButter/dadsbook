@@ -81,6 +81,7 @@ const getPrecisePlaneDataLoop = async (nightmare, planes, index = 0) => {
 
 const getPrecisePlaneData = async (nightmare, planes) => {
   const rawResults = await getPrecisePlaneDataLoop(nightmare, planes);
+
   return rawResults.map((plane) => {
     const { mainDescription, buildThreadLink, credits } = plane.rawDescription;
     plane.buildThreadLink = buildThreadLink;
