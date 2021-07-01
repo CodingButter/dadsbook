@@ -1,3 +1,3 @@
-Data/node_modules
-Data/images
-Data/.env
+*/node_modules
+*/images
+*.env
